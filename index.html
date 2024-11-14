@@ -7,16 +7,22 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="dist/notiflix-3.2.7.min.css" />
     <script type="module" crossorigin src="/cat-api-js/index.js"></script>
-    <link rel="modulepreload" crossorigin href="/cat-api-js/assets/vendor-CNNbG8jS.js">
-    <link rel="stylesheet" crossorigin href="/cat-api-js/assets/index-BtI5h8A1.css">
+    <link rel="modulepreload" crossorigin href="/cat-api-js/assets/vendor-B0ghNh3e.js">
+    <link rel="stylesheet" crossorigin href="/cat-api-js/assets/index-DQbczAH7.css">
   </head>
   <body>
     <main>
       <form class="breed-form" action="#">
-        <select class="breed-form_select" name="breed">
-        </select>
+          <div class="select-container">
+            <select class="breed-form_select is-hidden" name="breed">
+            </select>
+            <span class="custom-arrow"></span>
+          </div>
       </form>
+
+      <span class="loader is-hidden"></span>
 
       <div class="cat-info">
       </div>
