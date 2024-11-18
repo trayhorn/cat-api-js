@@ -1,4 +1,4 @@
-import { fetchBreeds, fetchCatByBreed } from './js/api';
+import { fetchBreeds, fetchCatByBreed } from './api';
 import Swal from 'sweetalert2';
 
 const selectEl = document.querySelector('.breed-form_select');
