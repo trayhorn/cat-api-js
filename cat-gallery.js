@@ -1,0 +1,2 @@
+import{f as i}from"./assets/api-BsiVDZ6G.js";import{S as c}from"./assets/vendor-B0ghNh3e.js";const t=document.querySelector(".breed-form_select");i().then(({data:e})=>s(e)).catch(e=>{c.fire({title:"Error!",text:e.message,icon:"error",confirmButtonText:"Ok"})}).finally(()=>{t.classList.remove("is-hidden")});function s(e){const o=e.map(({id:r,name:n})=>`<option value="${r}">${n}</option>`).join("");t.innerHTML=o}
+//# sourceMappingURL=cat-gallery.js.map
