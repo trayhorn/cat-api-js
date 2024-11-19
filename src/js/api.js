@@ -17,7 +17,7 @@ export function fetchCatByBreed(breedId) {
 export function fetchBreedImages(breedId) {
   return axios.get('images/search', {
     params: {
-      limit: 16,
+      limit: 50,
       page: 0,
       breed_ids: breedId
     }

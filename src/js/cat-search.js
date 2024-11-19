@@ -1,8 +1,9 @@
-import { fetchBreeds, fetchCatByBreed } from './api';
+import { fetchBreeds, fetchCatByBreed, fetchBreedImages } from './api';
 import { notifications } from '../utils/notifications';
 
 const selectEl = document.querySelector('.breed-form_select');
 const selectArrow = document.querySelector('.custom-arrow');
+const gallery = document.querySelector('.cat-gallery');
 const catInfo = document.querySelector('.cat-info');
 const loader = document.querySelector('.loader');
 
@@ -19,17 +20,35 @@ fetchBreeds()
 
 selectEl.addEventListener('change', handleSelectChange);
 
-function handleSelectChange(e) {
+async function handleSelectChange(e) {
   catInfo.innerHTML = '';
+  gallery.innerHTML = '';
   loader.classList.remove('is-hidden');
   const breedId = e.target.value;
 
-  fetchCatByBreed(breedId)
-    .then(({ data }) => {
-      loader.classList.add('is-hidden');
-      renderCatInfo(data[0]);
-    })
-    .catch(e => notifications.error(e));
+  try {
+    const [catResponse, breedImagesResponse] = await Promise.all([
+      fetchCatByBreed(breedId),
+      fetchBreedImages(breedId),
+    ]);
+
+    const { data: catData } = catResponse;
+    renderCatInfo(catData[0]);
+
+    const { data: breedImages } = breedImagesResponse;
+    gallery.innerHTML = breedImages
+      .filter(el => el.width > el.height)
+      .map(({ url }) => {
+        return `<li class="cat-gallery_item">
+            <img class="cat-gallery_image" src="${url}" alt="">
+          </li>`;
+      })
+      .join('');
+  } catch (error) {
+    notifications.error(e);
+  } finally {
+    loader.classList.add('is-hidden');
+  }
 }
 
 function renderSelectOptions(arr) {

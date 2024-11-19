@@ -114,3 +114,24 @@ select {
   border-top: var(--size) solid rgb(58, 109, 159);
   top: 62%;
 }
+
+/* Gallery */
+
+.cat-gallery {
+  margin: 50px 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: center;
+  gap: 15px;
+}
+
+.cat-gallery_item {
+  list-style: none;
+}
+
+.cat-gallery_image {
+  display: block;
+  object-fit: cover;
+  width: 100%;
+}
