@@ -1,0 +1,1 @@
+*,*:before,*:after{box-sizing:border-box}.fav-gallery{margin:50px 0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);align-items:center;gap:15px}.fav-gallery_item{list-style:none;cursor:pointer}.fav-gallery_image{display:block;object-fit:cover;width:100%;height:100%}
