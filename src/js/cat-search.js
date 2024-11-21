@@ -1,4 +1,9 @@
-import { fetchBreeds, fetchCatByBreed, fetchBreedImages } from './api';
+import {
+  fetchBreeds,
+  fetchCatByBreed,
+  fetchBreedImages,
+  saveImageToFavorites,
+} from './api';
 import { notifications } from '../utils/notifications';
 
 const selectEl = document.querySelector('.breed-form_select');
@@ -38,12 +43,25 @@ async function handleSelectChange(e) {
     const { data: breedImages } = breedImagesResponse;
     gallery.innerHTML = breedImages
       .filter(el => el.width > el.height)
-      .map(({ url }) => {
+      .map(({url, id}) => {
         return `<li class="cat-gallery_item">
-            <img class="cat-gallery_image" src="${url}" alt="">
+            <div>
+              <img
+                class="cat-gallery_image"
+                src="${url}" alt=""
+              >
+              <img
+                data-image-id="${id}" 
+                class="cat-gallery_icon" 
+                src="./img/heart.svg" alt="heart-icon"
+              >
+            </div>
           </li>`;
       })
       .join('');
+
+    gallery.addEventListener('click', handleFavIconClick)
+
   } catch (error) {
     notifications.error(e);
   } finally {
@@ -75,6 +93,16 @@ function renderCatInfo(object) {
 
   catInfo.innerHTML = markup;
 }
+
+function handleFavIconClick(e) {
+  if (!e.target.classList.contains('cat-gallery_icon')) {
+    return;
+  }
+
+  saveImageToFavorites(e.target.dataset.imageId);
+}
+
+
 
 
 

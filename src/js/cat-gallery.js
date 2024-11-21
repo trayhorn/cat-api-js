@@ -1,41 +1,28 @@
-import { fetchBreeds, fetchBreedImages } from './api';
-import Swal from 'sweetalert2';
+import { getFavourites, getImageById } from './api';
 
-const selectEl = document.querySelector('.breed-form_select');
-const gallery = document.querySelector('.cat-gallery');
+const gallery = document.querySelector('.fav-gallery');;
 
-fetchBreeds()
-  .then(({ data }) => renderSelectOptions(data))
-  .catch(e => {
-    Swal.fire({
-      title: 'Error!',
-      text: e.message,
-      icon: 'error',
-      confirmButtonText: 'Ok',
-    });
-  })
-  .finally(() => {
-    selectEl.classList.remove('is-hidden');
-  });
+async function renderFavourites() {
+  const { data } = await getFavourites();
+  const favIds = data.map(el => el.image_id);
 
-selectEl.addEventListener('change', e => {
-  const breedId = e.target.value;
+  const images = await Promise.all(
+    favIds.map(async id => {
+      const {data: image} = await getImageById(id);
+      return image;
+    })
+  )
 
-  fetchBreedImages(breedId).then((res) => {
-    gallery.innerHTML = res.data.map(({ url }) => {
-      return `<li class="cat-gallery_item">
-        <img class="cat-gallery_image" src="${url}" alt="">
-      </li>`;
-    }).join('');
-  })
-})
-
-
-
-function renderSelectOptions(arr) {
-  const markup = arr
-    .map(({ id, name }) => `<option value="${id}">${name}</option>`)
+  gallery.innerHTML = images
+    .map(({ url }) => {
+      return `<li class="fav-gallery_item">
+              <img
+                class="fav-gallery_image"
+                src="${url}" alt=""
+              >
+          </li>`;
+    })
     .join('');
-
-  selectEl.innerHTML = markup;
 }
+
+renderFavourites();

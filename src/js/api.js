@@ -24,4 +24,29 @@ export function fetchBreedImages(breedId) {
   });
 }
 
+export function saveImageToFavorites(id) {
+  const rawBody = JSON.stringify({
+    image_id: id,
+  });
+
+  return fetch('https://api.thecatapi.com/v1/favourites', {
+    method: 'POST',
+    body: rawBody,
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key': KEY,
+    },
+  });
+}
+
+export function getFavourites() {
+  return axios.get('/favourites');
+}
+
+export function getImageById(image_id) {
+  return axios.get(`/images/${image_id}`);
+}
+
+
+
 
