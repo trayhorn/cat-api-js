@@ -51,8 +51,8 @@ async function handleSelectChange(e) {
                 src="${url}" alt=""
               >
               <img
-                data-image-id="${id}" 
-                class="cat-gallery_icon" 
+                data-image-id="${id}"
+                class="cat-gallery_icon"
                 src="./img/heart.svg" alt="heart-icon"
               >
             </div>
