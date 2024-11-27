@@ -29,12 +29,12 @@ export function saveImageToFavorites(id) {
     image_id: id,
   });
 
-  return fetch('https://api.thecatapi.com/v1/favourites', {
-    method: 'POST',
-    body: rawBody,
+  return axios({
+    method: 'post',
+    url: '/favourites',
+    data: rawBody,
     headers: {
       'Content-Type': 'application/json',
-      'x-api-key': KEY,
     },
   });
 }

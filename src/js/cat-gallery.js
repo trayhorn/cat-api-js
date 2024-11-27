@@ -21,9 +21,20 @@ async function renderFavourites() {
       })
     );
 
-    gallery.innerHTML = images
-      .map(({url, id}) => {
-        return `<li class="fav-gallery_item">
+    gallery.innerHTML = createMarkUp(images);
+    gallery.addEventListener('click', handleDeleteFav);
+
+  } catch (e) {
+    notifications.error(e);
+  } finally {
+    loader.classList.add('is-hidden');
+  }
+
+}
+
+function createMarkUp(imagesArray) {
+  return imagesArray.map(({ url, id }) => {
+      return `<li class="fav-gallery_item">
               <img
                 class="fav-gallery_image"
                 src="${url}" alt=""
@@ -36,30 +47,18 @@ async function renderFavourites() {
                 >
               </button>
           </li>`;
-      })
-      .join('');
-  
-    handleDeleteFav();
-
-  } catch (e) {
-    notifications.error(e);
-  } finally {
-    loader.classList.add('is-hidden');
-  }
-
+    })
+    .join('');
 }
 
-function handleDeleteFav() {
-  gallery.addEventListener('click', async (e) => {
-    if (!e.target.classList.contains('fav-image_icon')) {
-      return;
-    }
+async function handleDeleteFav(e) {
+  if (!e.target.classList.contains('fav-image_icon')) {
+    return;
+  }
 
-    const image_id = e.target.dataset.imageId;
+  const image_id = e.target.dataset.imageId;
 
-    const { data: allFavs } = await getFavourites();
-    const data = allFavs.filter(el => el.image_id === image_id);
-    const idToDelete = data[0].id;
-    deleteFavourite(idToDelete);
-  });
+  const { data: allFavs } = await getFavourites();
+  const { id: idToDelete } = allFavs.find(el => el.image_id === image_id);
+  deleteFavourite(idToDelete);
 }
