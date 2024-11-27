@@ -94,12 +94,17 @@ function renderCatInfo(object) {
   catInfo.innerHTML = markup;
 }
 
-function handleFavIconClick(e) {
+async function handleFavIconClick(e) {
   if (!e.target.classList.contains('cat-gallery_icon')) {
     return;
   }
 
-  saveImageToFavorites(e.target.dataset.imageId);
+  try {
+    await saveImageToFavorites(e.target.dataset.imageId);
+    notifications.addedToFavorites();
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 

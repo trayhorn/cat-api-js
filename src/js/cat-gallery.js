@@ -61,4 +61,8 @@ async function handleDeleteFav(e) {
   const { data: allFavs } = await getFavourites();
   const { id: idToDelete } = allFavs.find(el => el.image_id === image_id);
   deleteFavourite(idToDelete);
+
+  const imageToDelete = e.target.closest('.fav-gallery_item');
+  imageToDelete.remove();
+  notifications.removedFromFavorites();
 }
