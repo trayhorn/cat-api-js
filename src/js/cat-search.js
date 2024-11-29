@@ -3,6 +3,7 @@ import {
   fetchCatByBreed,
   fetchBreedImages,
   saveImageToFavorites,
+  getFavourites,
 } from './api';
 import { notifications } from '../utils/notifications';
 
@@ -99,8 +100,17 @@ async function handleFavIconClick(e) {
     return;
   }
 
+  const imageId = e.target.dataset.imageId;
+
   try {
-    await saveImageToFavorites(e.target.dataset.imageId);
+    const favorites = await getFavourites();
+
+    if (favorites.data.find((el) => el.image_id === imageId)) {
+      notifications.alreadyInFavariotes();
+      return;
+    }
+
+    await saveImageToFavorites(imageId);
     notifications.addedToFavorites();
   } catch (error) {
     console.log(error);
