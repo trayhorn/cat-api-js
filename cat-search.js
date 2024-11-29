@@ -1,8 +1,8 @@
-import{f as h,n as o,a as f,b as u,s as p}from"./assets/notifications-C5HtCE2O.js";import"./assets/vendor-DCC95h-G.js";const l=document.querySelector(".breed-form_select"),v=document.querySelector(".custom-arrow"),i=document.querySelector(".cat-gallery"),d=document.querySelector(".cat-info"),r=document.querySelector(".loader");r.classList.remove("is-hidden");h().then(({data:e})=>L(e)).catch(e=>o.error(e)).finally(()=>{r.classList.add("is-hidden"),l.classList.remove("is-hidden"),v.classList.remove("is-hidden")});l.addEventListener("change",y);async function y(e){d.innerHTML="",i.innerHTML="",r.classList.remove("is-hidden");const a=e.target.value;try{const[t,s]=await Promise.all([f(a),u(a)]),{data:c}=t;I(c[0]);const{data:m}=s;i.innerHTML=m.filter(n=>n.width>n.height).map(({url:n,id:g})=>`<li class="cat-gallery_item">
+import{f,n as r,a as h,b as u,g as v,s as p}from"./assets/notifications-D1Rdp1Si.js";import"./assets/vendor-DCC95h-G.js";const d=document.querySelector(".breed-form_select"),y=document.querySelector(".custom-arrow"),o=document.querySelector(".cat-gallery"),l=document.querySelector(".cat-info"),n=document.querySelector(".loader");n.classList.remove("is-hidden");f().then(({data:e})=>I(e)).catch(e=>r.error(e)).finally(()=>{n.classList.add("is-hidden"),d.classList.remove("is-hidden"),y.classList.remove("is-hidden")});d.addEventListener("change",L);async function L(e){l.innerHTML="",o.innerHTML="",n.classList.remove("is-hidden");const a=e.target.value;try{const[t,s]=await Promise.all([h(a),u(a)]),{data:c}=t;_(c[0]);const{data:m}=s;o.innerHTML=m.filter(i=>i.width>i.height).map(({url:i,id:g})=>`<li class="cat-gallery_item">
             <div>
               <img
                 class="cat-gallery_image"
-                src="${n}" alt=""
+                src="${i}" alt=""
               >
               <img
                 data-image-id="${g}"
@@ -10,7 +10,7 @@ import{f as h,n as o,a as f,b as u,s as p}from"./assets/notifications-C5HtCE2O.j
                 src="./img/heart.svg" alt="heart-icon"
               >
             </div>
-          </li>`).join(""),i.addEventListener("click",_)}catch{o.error(e)}finally{r.classList.add("is-hidden")}}function L(e){const a=e.map(({id:t,name:s})=>`<option value="${t}">${s}</option>`).join("");l.innerHTML=a}function I(e){const{temperament:a,name:t,description:s}=e.breeds[0],c=`
+          </li>`).join(""),o.addEventListener("click",$)}catch{r.error(e)}finally{n.classList.add("is-hidden")}}function I(e){const a=e.map(({id:t,name:s})=>`<option value="${t}">${s}</option>`).join("");d.innerHTML=a}function _(e){const{temperament:a,name:t,description:s}=e.breeds[0],c=`
         <div>
           <img class="cat-info_image" src="${e.url}" alt="">
         </div>
@@ -19,5 +19,5 @@ import{f as h,n as o,a as f,b as u,s as p}from"./assets/notifications-C5HtCE2O.j
           <p class="cat-info_temper">${a}</p>
           <p class="cat-info_description">${s}</p>
         </div>
-      `;d.innerHTML=c}async function _(e){if(e.target.classList.contains("cat-gallery_icon"))try{await p(e.target.dataset.imageId),o.addedToFavorites()}catch(a){console.log(a)}}
+      `;l.innerHTML=c}async function $(e){if(!e.target.classList.contains("cat-gallery_icon"))return;const a=e.target.dataset.imageId;try{if((await v()).data.find(s=>s.image_id===a)){r.alreadyInFavariotes();return}await p(a),r.addedToFavorites()}catch(t){console.log(t)}}
 //# sourceMappingURL=cat-search.js.map
