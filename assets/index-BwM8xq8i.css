@@ -1,0 +1,1 @@
+body{background-color:#86e1f4}.buttons-container{display:inline-block;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)}button{padding:7px 12px;font-size:16px;outline:1px solid rgb(58,109,159);border-radius:5px;border:none;background-color:#fff;cursor:pointer;transition:transform .1s linear}button:hover{transform:scale(1.05);outline-width:2px}a+a{margin-left:10px}
