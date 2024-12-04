@@ -43,10 +43,6 @@ export function getFavourites() {
   return axios.get('/favourites');
 }
 
-export function getImageById(image_id) {
-  return axios.get(`/images/${image_id}`);
-}
-
 export function deleteFavourite(fav_id) {
   return axios.delete(`/favourites/${fav_id}`);
 }

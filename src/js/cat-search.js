@@ -7,6 +7,7 @@ import {
 } from './api';
 import { notifications } from '../utils/notifications';
 
+
 const selectEl = document.querySelector('.breed-form_select');
 const selectArrow = document.querySelector('.custom-arrow');
 const gallery = document.querySelector('.cat-gallery');
