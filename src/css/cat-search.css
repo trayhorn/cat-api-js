@@ -60,59 +60,10 @@ main {
   100% {
       transform: rotate(360deg);
   }
-  }
-
-select {
-  font-size: 1em;
-  border: 1px solid rgb(58, 109, 159);
-  border-radius: 5px;
-  appearance: none;
-  padding: 1em 2em;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-  outline: none;
-  cursor: pointer;
 }
 
 .select-container {
-  position: relative;
-}
-
-.select-container select {
-  cursor: pointer;
-}
-
-.custom-arrow {
-  --size: 0.5em;
-  position: absolute;
-  width: 3em;
-  height: 100%;
-  top: 0;
-  right: 0;
-  background-color: transparent;
-  pointer-events: none;
-}
-.custom-arrow::before,
-.custom-arrow::after {
-  content: '';
-  position: absolute;
-  width: 0;
-  height: 0;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.custom-arrow::before {
-  border-left: var(--size) solid transparent;
-  border-right: var(--size) solid transparent;
-  border-bottom: var(--size) solid rgb(58, 109, 159);
-  top: 38%;
-}
-
-.custom-arrow::after {
-  border-left: var(--size) solid transparent;
-  border-right: var(--size) solid transparent;
-  border-top: var(--size) solid rgb(58, 109, 159);
-  top: 62%;
+  width: 200px;
 }
 
 /* Gallery */

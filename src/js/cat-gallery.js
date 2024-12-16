@@ -12,7 +12,6 @@ renderFavourites();
 async function renderFavourites() {
   try {
     const { data } = await getFavourites();
-    console.log(data);
 
     gallery.innerHTML = createMarkUp(data);
     gallery.addEventListener('click', handleDeleteFav);
