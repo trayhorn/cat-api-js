@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+:root {
+  --accent-bg-color: rgb(58, 109, 159);
+}
+
 body {
   font-family: "Montserrat", sans-serif;
   font-size: 16px;
@@ -45,7 +49,7 @@ main {
   transform: translate(-50%, -50%);
   width: 48px;
   height: 48px;
-  border: 5px solid rgb(58, 109, 159);
+  border: 5px solid var(--accent-bg-color);
   border-bottom-color: transparent;
   border-radius: 50%;
   display: inline-block;
@@ -109,4 +113,14 @@ main {
 }
 .cat-gallery_icon:hover {
   transform: scale(1.1);
+}
+
+/* Slim select styles */
+
+input[type="search"]:focus {
+  box-shadow: 0 0 5px var(--accent-bg-color) !important;
+}
+
+.select-option:hover {
+  background-color: var(--accent-bg-color) !important;
 }

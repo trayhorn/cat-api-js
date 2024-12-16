@@ -9,25 +9,37 @@ import { notifications } from '../utils/notifications';
 import SlimSelect from "slim-select";
 
 
-const selectEl = document.querySelector(".breed-form_select");
-const selectArrow = document.querySelector('.custom-arrow');
+const select = document.querySelector(".breed-form_select");
 const gallery = document.querySelector('.cat-gallery');
 const catInfo = document.querySelector('.cat-info');
 const loader = document.querySelector('.loader');
 
 loader.classList.remove('is-hidden');
 
-
-
 fetchBreeds()
   .then(({ data }) => renderSelectOptions(data))
   .catch(e => notifications.error(e))
   .finally(() => {
     loader.classList.add('is-hidden');
-    selectEl.classList.remove('is-hidden');
+    select.classList.remove('is-hidden');
   })
 
-selectEl.addEventListener('change', handleSelectChange);
+select.addEventListener('change', handleSelectChange);
+
+function renderSelectOptions(arr) {
+  const markup = arr
+    .map(
+      ({ id, name }) =>
+        `<option class="select-option" value="${id}">${name}</option>`
+    )
+    .join("");
+
+  select.insertAdjacentHTML('beforeend', markup);
+
+  new SlimSelect({
+    select: ".breed-form_select",
+  });
+}
 
 async function handleSelectChange(e) {
   catInfo.innerHTML = '';
@@ -73,20 +85,7 @@ async function handleSelectChange(e) {
   }
 }
 
-function renderSelectOptions(arr) {
-  const markup = arr
-    .map(
-      ({ id, name }) =>
-      `<option value="${id}">${name}</option>`
-    )
-    .join("");
 
-  selectEl.innerHTML = markup;
-
-   new SlimSelect({
-     select: ".breed-form_select",
-   });
-}
 
 function renderCatInfo(object) {
   const { temperament, name, description } = object.breeds[0];
