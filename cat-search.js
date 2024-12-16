@@ -1,8 +1,8 @@
-import{f,n as i,a as u,b as h,g as v,s as p}from"./assets/notifications-CaSNLay6.js";import{S as y}from"./assets/vendor-S7NC7oBj.js";const d=document.querySelector(".breed-form_select");document.querySelector(".custom-arrow");const o=document.querySelector(".cat-gallery"),l=document.querySelector(".cat-info"),n=document.querySelector(".loader");n.classList.remove("is-hidden");f().then(({data:e})=>I(e)).catch(e=>i.error(e)).finally(()=>{n.classList.add("is-hidden"),d.classList.remove("is-hidden")});d.addEventListener("change",L);async function L(e){l.innerHTML="",o.innerHTML="",n.classList.remove("is-hidden");const a=e.target.value;try{const[t,s]=await Promise.all([u(a),h(a)]),{data:c}=t;_(c[0]);const{data:m}=s;o.innerHTML=m.filter(r=>r.width>r.height).map(({url:r,id:g})=>`<li class="cat-gallery_item">
+import{f,n,a as h,b as v,g as u,s as p}from"./assets/notifications-CaSNLay6.js";import{S as y}from"./assets/vendor-S7NC7oBj.js";const d=document.querySelector(".breed-form_select"),o=document.querySelector(".cat-gallery"),l=document.querySelector(".cat-info"),r=document.querySelector(".loader");r.classList.remove("is-hidden");f().then(({data:e})=>L(e)).catch(e=>n.error(e)).finally(()=>{r.classList.add("is-hidden"),d.classList.remove("is-hidden")});d.addEventListener("change",I);function L(e){const a=e.map(({id:t,name:s})=>`<option class="select-option" value="${t}">${s}</option>`).join("");d.insertAdjacentHTML("beforeend",a),new y({select:".breed-form_select"})}async function I(e){l.innerHTML="",o.innerHTML="",r.classList.remove("is-hidden");const a=e.target.value;try{const[t,s]=await Promise.all([h(a),v(a)]),{data:c}=t;_(c[0]);const{data:m}=s;o.innerHTML=m.filter(i=>i.width>i.height).map(({url:i,id:g})=>`<li class="cat-gallery_item">
             <div>
               <img
                 class="cat-gallery_image"
-                src="${r}" alt=""
+                src="${i}" alt=""
               >
               <img
                 data-image-id="${g}"
@@ -10,7 +10,7 @@ import{f,n as i,a as u,b as h,g as v,s as p}from"./assets/notifications-CaSNLay6
                 src="./img/heart.svg" alt="heart-icon"
               >
             </div>
-          </li>`).join(""),o.addEventListener("click",S)}catch{i.error(e)}finally{n.classList.add("is-hidden")}}function I(e){const a=e.map(({id:t,name:s})=>`<option value="${t}">${s}</option>`).join("");d.innerHTML=a,new y({select:".breed-form_select"})}function _(e){const{temperament:a,name:t,description:s}=e.breeds[0],c=`
+          </li>`).join(""),o.addEventListener("click",S)}catch{n.error(e)}finally{r.classList.add("is-hidden")}}function _(e){const{temperament:a,name:t,description:s}=e.breeds[0],c=`
         <div>
           <img class="cat-info_image" src="${e.url}" alt="">
         </div>
@@ -19,5 +19,5 @@ import{f,n as i,a as u,b as h,g as v,s as p}from"./assets/notifications-CaSNLay6
           <p class="cat-info_temper">${a}</p>
           <p class="cat-info_description">${s}</p>
         </div>
-      `;l.innerHTML=c}async function S(e){if(!e.target.classList.contains("cat-gallery_icon"))return;const a=e.target.dataset.imageId;try{if((await v()).data.find(s=>s.image_id===a)){i.alreadyInFavariotes();return}await p(a),i.addedToFavorites()}catch(t){console.log(t)}}
+      `;l.innerHTML=c}async function S(e){if(!e.target.classList.contains("cat-gallery_icon"))return;const a=e.target.dataset.imageId;try{if((await u()).data.find(s=>s.image_id===a)){n.alreadyInFavariotes();return}await p(a),n.addedToFavorites()}catch(t){console.log(t)}}
 //# sourceMappingURL=cat-search.js.map
