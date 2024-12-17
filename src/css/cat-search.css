@@ -66,10 +66,6 @@ main {
   }
 }
 
-.select-container {
-  width: 200px;
-}
-
 /* Gallery */
 
 .cat-gallery {
@@ -117,10 +113,20 @@ main {
 
 /* Slim select styles */
 
-input[type="search"]:focus {
-  box-shadow: 0 0 5px var(--accent-bg-color) !important;
+.select-container {
+  width: 200px;
 }
 
-.select-option:hover {
-  background-color: var(--accent-bg-color) !important;
+body .ss-content .ss-list .ss-option:hover {
+  background-color: var(--accent-bg-color);
+}
+
+body .ss-content .ss-search input:focus,
+body .ss-main:focus {
+  box-shadow: 0 0 5px var(--accent-bg-color);
+}
+
+body .ss-content .ss-list .ss-option.ss-highlighted,
+body .ss-content .ss-list .ss-option:not(.ss-disabled).ss-selected {
+  background-color: var(--accent-bg-color);
 }

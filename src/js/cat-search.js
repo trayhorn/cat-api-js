@@ -53,14 +53,45 @@ async function handleSelectChange(e) {
       fetchBreedImages(breedId),
     ]);
 
-    const { data: catData } = catResponse;
-    renderCatInfo(catData[0]);
+    const { data: [catData] } = catResponse;
+    console.log(catData);
+    catInfo.innerHTML = renderCatInfo(catData);
 
     const { data: breedImages } = breedImagesResponse;
-    gallery.innerHTML = breedImages
-      .filter(el => el.width > el.height)
-      .map(({url, id}) => {
-        return `<li class="cat-gallery_item">
+    gallery.innerHTML = renderCatImages(breedImages);
+
+    gallery.addEventListener('click', handleFavIconClick)
+
+  } catch (error) {
+    notifications.error(e);
+  } finally {
+    loader.classList.add('is-hidden');
+  }
+}
+
+function renderCatInfo(object) {
+  const {
+    url,
+    breeds: [{ temperament, name, description }],
+  } = object;
+
+  return `
+        <div>
+          <img class="cat-info_image" src="${url}" alt="${name}">
+        </div>
+        <div>
+          <h2 class="cat-info_name">${name}</h2>
+          <p class="cat-info_temper">${temperament}</p>
+          <p class="cat-info_description">${description}</p>
+        </div>
+      `;
+}
+
+function renderCatImages(data) {
+  return data
+    .filter((el) => el.width > el.height)
+    .map(({ url, id }) => {
+      return `<li class="cat-gallery_item">
             <div>
               <img
                 class="cat-gallery_image"
@@ -73,35 +104,8 @@ async function handleSelectChange(e) {
               >
             </div>
           </li>`;
-      })
-      .join('');
-
-    gallery.addEventListener('click', handleFavIconClick)
-
-  } catch (error) {
-    notifications.error(e);
-  } finally {
-    loader.classList.add('is-hidden');
-  }
-}
-
-
-
-function renderCatInfo(object) {
-  const { temperament, name, description } = object.breeds[0];
-
-  const markup = `
-        <div>
-          <img class="cat-info_image" src="${object.url}" alt="">
-        </div>
-        <div>
-          <h2 class="cat-info_name">${name}</h2>
-          <p class="cat-info_temper">${temperament}</p>
-          <p class="cat-info_description">${description}</p>
-        </div>
-      `;
-
-  catInfo.innerHTML = markup;
+    })
+    .join("");
 }
 
 async function handleFavIconClick(e) {
@@ -109,7 +113,7 @@ async function handleFavIconClick(e) {
     return;
   }
 
-  const imageId = e.target.dataset.imageId;
+  const { imageId } = e.target.dataset;
 
   try {
     const favorites = await getFavourites();
