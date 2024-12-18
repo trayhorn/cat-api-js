@@ -1,45 +1,49 @@
+@import "./variables.scss";
+
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
 
-:root {
-  --accent-bg-color: rgb(58, 109, 159);
-}
-
 body {
   font-family: "Montserrat", sans-serif;
-  font-size: 16px;
-  line-height: 24px;
+  font-size: $font-size;
+  color: $primary-text-color;
+  line-height: 1.5;
   font-weight: 400;
+  margin: 0;
 }
 
 main {
-  width: 90%;
+  padding: 1rem;
   margin: 0 auto;
 }
 
-.breed-form {
-  display: flex;
-  justify-content: center;
-}
+/* Cat Info */
 
 .cat-info {
   display: flex;
   gap: 30px;
   margin-top: 30px;
-}
 
-.cat-info_image {
-  display: block;
-  width: 400px;
-  height: 400px;
-  object-fit: cover;
-}
+  & > div {
+    flex-shrink: 0;
+    width: 400px;
+    height: 400px;
+  }
 
-.is-hidden {
-  display: none !important;
+  .image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .name {
+    font-size: $font-size-b;
+    color: $secondary-text-color;
+  }
 }
 
 .loader {
@@ -49,7 +53,7 @@ main {
   transform: translate(-50%, -50%);
   width: 48px;
   height: 48px;
-  border: 5px solid var(--accent-bg-color);
+  border: 5px solid $accent-bg-color;
   border-bottom-color: transparent;
   border-radius: 50%;
   display: inline-block;
@@ -66,67 +70,78 @@ main {
   }
 }
 
-/* Gallery */
+.is-hidden {
+  display: none !important;
+}
 
-.cat-gallery {
+/* Search Gallery */
+
+.search-gallery {
   margin: 50px 0;
   padding: 0;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   align-items: center;
   gap: 15px;
-}
 
-.cat-gallery_item {
-  list-style: none;
-  cursor: pointer;
-}
-.cat-gallery_item:hover {
-  outline: 2px solid rgb(58, 109, 159);
-}
-.cat-gallery_item:hover .cat-gallery_icon {
-  opacity: 1;
-}
+  .item {
+    list-style: none;
+    cursor: pointer;
 
-.cat-gallery_item div {
-  position: relative;
-}
+    &:hover {
+      outline: 2px solid $accent-bg-color;
+    }
+    &:hover .icon {
+      opacity: 1;
+      transition: opacity 150ms linear;
+    }
+  }
 
-.cat-gallery_image {
-  display: block;
-  object-fit: cover;
-  width: 100%;
-}
+  .item div {
+    position: relative;
+  }
 
-.cat-gallery_icon {
-  position: absolute;
-  opacity: 0;
-  top: 10px;
-  right: 10px;
-  transition: opacity 150ms linear;
-  transition: transform 100ms linear;
+  .image {
+    display: block;
+    object-fit: cover;
+    width: 100%;
+  }
 
-}
-.cat-gallery_icon:hover {
-  transform: scale(1.1);
+  .icon {
+    position: absolute;
+    opacity: 0;
+    top: 10px;
+    right: 10px;
+    transition: transform 100ms linear;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
 }
 
 /* Slim select styles */
 
-.select-container {
-  width: 200px;
+.breed-form {
+  display: flex;
+  justify-content: center;
+
+  .container {
+    width: 200px;
+  }
 }
 
+
 body .ss-content .ss-list .ss-option:hover {
-  background-color: var(--accent-bg-color);
+  background-color: $accent-bg-color;
 }
 
 body .ss-content .ss-search input:focus,
 body .ss-main:focus {
-  box-shadow: 0 0 5px var(--accent-bg-color);
+  box-shadow: 0 0 5px $accent-bg-color;
 }
 
 body .ss-content .ss-list .ss-option.ss-highlighted,
 body .ss-content .ss-list .ss-option:not(.ss-disabled).ss-selected {
-  background-color: var(--accent-bg-color);
+  background-color: $accent-bg-color;
 }

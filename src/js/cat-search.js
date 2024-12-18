@@ -9,8 +9,8 @@ import { notifications } from '../utils/notifications';
 import SlimSelect from "slim-select";
 
 
-const select = document.querySelector(".breed-form_select");
-const gallery = document.querySelector('.cat-gallery');
+const select = document.querySelector('.breed-form .select');
+const gallery = document.querySelector('.search-gallery');
 const catInfo = document.querySelector('.cat-info');
 const loader = document.querySelector('.loader');
 
@@ -37,7 +37,7 @@ function renderSelectOptions(arr) {
   select.insertAdjacentHTML('beforeend', markup);
 
   new SlimSelect({
-    select: ".breed-form_select",
+    select: ".breed-form .select",
   });
 }
 
@@ -77,12 +77,12 @@ function renderCatInfo(object) {
 
   return `
         <div>
-          <img class="cat-info_image" src="${url}" alt="${name}">
+          <img class="image" src="${url}" alt="${name}">
         </div>
         <div>
-          <h2 class="cat-info_name">${name}</h2>
-          <p class="cat-info_temper">${temperament}</p>
-          <p class="cat-info_description">${description}</p>
+          <h2 class="name">${name}</h2>
+          <p class="temper">${temperament}</p>
+          <p class="description">${description}</p>
         </div>
       `;
 }
@@ -91,15 +91,15 @@ function renderCatImages(data) {
   return data
     .filter((el) => el.width > el.height)
     .map(({ url, id }) => {
-      return `<li class="cat-gallery_item">
+      return `<li class="item">
             <div>
               <img
-                class="cat-gallery_image"
+                class="image"
                 src="${url}" alt=""
               >
               <img
                 data-image-id="${id}"
-                class="cat-gallery_icon"
+                class="icon"
                 src="./img/heart.svg" alt="heart-icon"
               >
             </div>
@@ -109,7 +109,7 @@ function renderCatImages(data) {
 }
 
 async function handleFavIconClick(e) {
-  if (!e.target.classList.contains('cat-gallery_icon')) {
+  if (!e.target.classList.contains('icon')) {
     return;
   }
 
