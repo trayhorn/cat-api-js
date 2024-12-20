@@ -4,6 +4,11 @@ import { notifications } from '../utils/notifications';
 
 const gallery = document.querySelector('.fav-gallery');
 const loader = document.querySelector('.loader');
+const themeSwitch = document.querySelector(".slider");
+
+themeSwitch.addEventListener('click', (e) => {
+  document.querySelector('body').classList.toggle('dark-mode');
+})
 
 loader.classList.remove('is-hidden');
 
@@ -26,14 +31,14 @@ async function renderFavourites() {
 function createMarkUp(imagesArray) {
   return imagesArray
     .map(({ id, image: { url } }) => {
-      return `<li class="fav-gallery_item">
+      return `<li class="item">
               <img
-                class="fav-gallery_image"
+                class="image"
                 src="${url}" alt=""
               >
-              <button class="fav-image_button">
-                <img 
-                  class="fav-image_icon"
+              <button class="icon-container">
+                <img
+                  class="icon"
                   data-image-id="${id}"
                   src="./img/cancel-circle.svg" alt=""
                 >
@@ -44,14 +49,14 @@ function createMarkUp(imagesArray) {
 }
 
 async function handleDeleteFav(e) {
-  if (!e.target.classList.contains('fav-image_icon')) {
+  if (!e.target.classList.contains('icon')) {
     return;
   }
 
   const image_id = e.target.dataset.imageId;
   deleteFavourite(image_id);
 
-  const imageToDelete = e.target.closest('.fav-gallery_item');
+  const imageToDelete = e.target.closest('.item');
   imageToDelete.remove();
   notifications.removedFromFavorites();
 }
