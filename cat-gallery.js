@@ -1,14 +1,14 @@
-import{g as n,n as r,d as o}from"./assets/notifications-CaSNLay6.js";import"./assets/vendor-S7NC7oBj.js";const i=document.querySelector(".fav-gallery"),s=document.querySelector(".loader");s.classList.remove("is-hidden");c();async function c(){try{const{data:e}=await n();i.innerHTML=l(e),i.addEventListener("click",m)}catch(e){r.error(e)}finally{s.classList.add("is-hidden")}}function l(e){return e.map(({id:a,image:{url:t}})=>`<li class="fav-gallery_item">
+import{g as o,n as r,d as s}from"./assets/notifications-CaSNLay6.js";import"./assets/vendor-S7NC7oBj.js";const i=document.querySelector(".fav-gallery"),c=document.querySelector(".loader"),n=document.querySelector(".slider");n.addEventListener("click",e=>{document.querySelector("body").classList.toggle("dark-mode")});c.classList.remove("is-hidden");l();async function l(){try{const{data:e}=await o();i.innerHTML=d(e),i.addEventListener("click",m)}catch(e){r.error(e)}finally{c.classList.add("is-hidden")}}function d(e){return e.map(({id:t,image:{url:a}})=>`<li class="item">
               <img
-                class="fav-gallery_image"
-                src="${t}" alt=""
+                class="image"
+                src="${a}" alt=""
               >
-              <button class="fav-image_button">
-                <img 
-                  class="fav-image_icon"
-                  data-image-id="${a}"
+              <button class="icon-container">
+                <img
+                  class="icon"
+                  data-image-id="${t}"
                   src="./img/cancel-circle.svg" alt=""
                 >
               </button>
-          </li>`).join("")}async function m(e){if(!e.target.classList.contains("fav-image_icon"))return;const a=e.target.dataset.imageId;o(a),e.target.closest(".fav-gallery_item").remove(),r.removedFromFavorites()}
+          </li>`).join("")}async function m(e){if(!e.target.classList.contains("icon"))return;const t=e.target.dataset.imageId;s(t),e.target.closest(".item").remove(),r.removedFromFavorites()}
 //# sourceMappingURL=cat-gallery.js.map
