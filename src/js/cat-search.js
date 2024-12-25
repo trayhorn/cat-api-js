@@ -4,7 +4,8 @@ import {
   fetchBreedImages,
   saveImageToFavorites,
   getFavourites,
-} from './api';
+  deleteFavourite
+} from "./api";
 import { notifications } from '../utils/notifications';
 import SlimSelect from "slim-select";
 
@@ -54,7 +55,6 @@ async function handleSelectChange(e) {
     ]);
 
     const { data: [catData] } = catResponse;
-    console.log(catData);
     catInfo.innerHTML = renderCatInfo(catData);
 
     const { data: breedImages } = breedImagesResponse;
@@ -114,12 +114,18 @@ async function handleFavIconClick(e) {
   }
 
   const { imageId } = e.target.dataset;
+  e.target.setAttribute("src", "./img/heart-broken.svg");
 
   try {
     const favorites = await getFavourites();
 
     if (favorites.data.find((el) => el.image_id === imageId)) {
-      notifications.alreadyInFavariotes();
+      const elementToDelete = favorites.data.find(
+        (el) => el.image_id === imageId
+      );
+      e.target.setAttribute("src", "./img/heart.svg");
+      await deleteFavourite(elementToDelete.id);
+      notifications.removedFromFavorites();
       return;
     }
 

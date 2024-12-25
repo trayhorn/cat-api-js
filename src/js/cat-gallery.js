@@ -53,8 +53,8 @@ async function handleDeleteFav(e) {
     return;
   }
 
-  const image_id = e.target.dataset.imageId;
-  deleteFavourite(image_id);
+  const { imageId } = e.target.dataset;
+  deleteFavourite(imageId);
 
   const imageToDelete = e.target.closest('.item');
   imageToDelete.remove();
