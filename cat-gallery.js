@@ -10,5 +10,5 @@ import{g as o,n as r,d as s}from"./assets/notifications-CaSNLay6.js";import"./as
                   src="./img/cancel-circle.svg" alt=""
                 >
               </button>
-          </li>`).join("")}async function m(e){if(!e.target.classList.contains("icon"))return;const t=e.target.dataset.imageId;s(t),e.target.closest(".item").remove(),r.removedFromFavorites()}
+          </li>`).join("")}async function m(e){if(!e.target.classList.contains("icon"))return;const{imageId:t}=e.target.dataset;s(t),e.target.closest(".item").remove(),r.removedFromFavorites()}
 //# sourceMappingURL=cat-gallery.js.map
