@@ -6,6 +6,7 @@ import {
   getFavourites,
   deleteFavourite
 } from "./api";
+import { renderCatInfo, renderCatImages } from "./render-functions";
 import { notifications } from '../utils/notifications';
 import SlimSelect from "slim-select";
 
@@ -17,23 +18,32 @@ const loader = document.querySelector('.loader');
 
 loader.classList.remove('is-hidden');
 
-fetchBreeds()
-  .then(({ data }) => renderSelectOptions(data))
-  .catch(e => notifications.error(e))
-  .finally(() => {
-    loader.classList.add('is-hidden');
-    select.classList.remove('is-hidden');
-  })
+
+getItemsFromStorage();
+
+fetchBreedsTest();
 
 select.addEventListener('change', handleSelectChange);
 
+//Functions
+
+async function fetchBreedsTest() {
+  try {
+    const { data } = await fetchBreeds();
+    renderSelectOptions(data);
+  } catch (e) {
+    notifications.error(e);
+  } finally {
+    loader.classList.add("is-hidden");
+    select.classList.remove("is-hidden");
+  }
+}
+
 function renderSelectOptions(arr) {
-  const markup = arr
-    .map(
+  const markup = arr.map(
       ({ id, name }) =>
         `<option class="select-option" value="${id}">${name}</option>`
-    )
-    .join("");
+    ).join("");
 
   select.insertAdjacentHTML('beforeend', markup);
 
@@ -55,9 +65,11 @@ async function handleSelectChange(e) {
     ]);
 
     const { data: [catData] } = catResponse;
+    localStorage.setItem('catInfo', JSON.stringify(catData));
     catInfo.innerHTML = renderCatInfo(catData);
 
     const { data: breedImages } = breedImagesResponse;
+    localStorage.setItem('catImages', JSON.stringify(breedImages));
     gallery.innerHTML = renderCatImages(breedImages);
 
     gallery.addEventListener('click', handleFavIconClick)
@@ -67,45 +79,6 @@ async function handleSelectChange(e) {
   } finally {
     loader.classList.add('is-hidden');
   }
-}
-
-function renderCatInfo(object) {
-  const {
-    url,
-    breeds: [{ temperament, name, description }],
-  } = object;
-
-  return `
-        <div>
-          <img class="image" src="${url}" alt="${name}">
-        </div>
-        <div>
-          <h2 class="name">${name}</h2>
-          <p class="temper">${temperament}</p>
-          <p class="description">${description}</p>
-        </div>
-      `;
-}
-
-function renderCatImages(data) {
-  return data
-    .filter((el) => el.width > el.height)
-    .map(({ url, id }) => {
-      return `<li class="item">
-            <div>
-              <img
-                class="image"
-                src="${url}" alt=""
-              >
-              <img
-                data-image-id="${id}"
-                class="icon"
-                src="./img/heart.svg" alt="heart-icon"
-              >
-            </div>
-          </li>`;
-    })
-    .join("");
 }
 
 async function handleFavIconClick(e) {
@@ -136,10 +109,16 @@ async function handleFavIconClick(e) {
   }
 }
 
+function getItemsFromStorage() {
+  if (!localStorage.getItem("catInfo") ||
+    !localStorage.getItem("catImages")) {
+    return;
+  }
 
-
-
-
-
-
-
+  catInfo.innerHTML = renderCatInfo(
+    JSON.parse(localStorage.getItem("catInfo"))
+  );
+  gallery.innerHTML = renderCatImages(
+    JSON.parse(localStorage.getItem("catImages"))
+  );
+}
