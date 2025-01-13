@@ -18,10 +18,9 @@ export function renderCatInfo(object) {
 
 export function renderCatImages(data) {
   return data
-    .filter((el) => el.width > el.height)
-    .map(({ url, id }) => {
+    .map(({ url, id, width, height }) => {
       return `
-        <li class="item">
+        <li class='item ${width < height ? "vertical" : ""}'>
           <div>
             <img
               class="image"
