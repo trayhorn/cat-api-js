@@ -36,3 +36,23 @@ export function renderCatImages(data) {
     })
     .join("");
 }
+
+export function createGalleryMarkUp(imagesArray) {
+  return imagesArray
+    .map(({ id, image: { url } }) => {
+      return `<li class="item">
+              <img
+                class="image"
+                src="${url}" alt=""
+              >
+              <button class="icon-container">
+                <img
+                  class="icon"
+                  data-image-id="${id}"
+                  src="./img/cancel-circle.svg" alt=""
+                >
+              </button>
+          </li>`;
+    })
+    .join("");
+}
